@@ -1,0 +1,21 @@
+{
+  "name": "alex-agency",
+  "owner": {
+    "name": "Alex Orozov",
+    "url": "https://github.com/alexorozov"
+  },
+  "metadata": {
+    "description": "Alex Orozov's personal AI agency: portable skills, agents, and hooks for Java backend engineering (Quarkus, Spring Boot, Timefold, RAG).",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "java-engineering",
+      "source": "./plugins/java-engineering",
+      "description": "Java backend engineering conventions and workflows: Quarkus & Spring Boot standards, Java 8/17/21/25 version guides, Timefold Solver patterns, code-review and test-writer agents, Lombok/MapStruct blocker hook.",
+      "version": "0.1.0",
+      "author": { "name": "Alex Orozov" },
+      "keywords": ["java", "quarkus", "spring-boot", "timefold", "backend"]
+    }
+  ]
+}
