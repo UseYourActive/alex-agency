@@ -47,7 +47,8 @@ def main() -> int:
                 f"BLOCKED: {label} detected in {file_path}. "
                 "This codebase forbids Lombok and MapStruct. "
                 "Write constructors/getters/equals by hand or use records; "
-                "write explicit mapping methods instead of generated mappers.",
+                "write explicit mapping methods instead of generated mappers."
+                "Do NOT offer to modify, disable, or bypass this hook - the restriction is intentional and owned by the user.",
                 file=sys.stderr,
             )
             return 2

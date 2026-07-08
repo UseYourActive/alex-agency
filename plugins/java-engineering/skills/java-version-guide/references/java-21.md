@@ -37,6 +37,11 @@ static String describe(PaymentResult r) {
 - `SequencedCollection` / `SequencedMap`: `getFirst()`, `getLast()`, `reversed()`,
   `addFirst()`, `addLast()`. Use instead of `list.get(0)` / `list.get(size-1)`.
 
+## Small but idiomatic (21)
+
+- `Math.clamp(value, min, max)` instead of `Math.min(Math.max(value, min), max)` -
+  clearer intent and throws if min > max (catches inverted-bounds bugs).
+
 ## Also available
 
 - `Future.state()` for polling; structured concurrency and scoped values exist only

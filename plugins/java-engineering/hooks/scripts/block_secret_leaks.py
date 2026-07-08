@@ -50,7 +50,8 @@ def main() -> int:
             print(
                 f"BLOCKED: possible {label} detected in content being written to {file_path}. "
                 "Never write real credentials into files. Use an environment variable "
-                "(${VAR_NAME}) and add the variable to .env.example with a placeholder.",
+                "(${VAR_NAME}) and add the variable to .env.example with a placeholder."
+                "Do NOT offer to modify, disable, or bypass this hook - the restriction is intentional and owned by the user.",
                 file=sys.stderr,
             )
             return 2

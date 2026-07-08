@@ -23,6 +23,24 @@ instructions, not one-time steps.
 - One REST resource class per use case where practical (REPR: Request → Endpoint →
   Response). Endpoint methods stay thin; logic lives in application services.
 
+## Extensibility (Open-Closed)
+
+- Per-variant BEHAVIOR (per channel/provider/type): one strategy interface, one
+  implementation per variant, discovered via CDI and dispatched from a map/registry.
+  ONE exhaustive switch in a single factory is acceptable; two switches over the same
+  enum in different places means extract a strategy or config map.
+- Per-variant CONFIGURATION: model as a Map in @ConfigMapping
+  (`limits.email.max=...` -> `Map<NotificationChannel, Limit> limits()`), so adding a
+  variant is config + at most one new class, never editing existing methods.
+- Validators: one ConstraintValidator per concern/variant composed via annotation
+  groups, not a god-class with per-channel branches.
+
+## Permitted exception to the records rule
+
+- JAX-RS `@BeanParam` containers may be mutable classes with setters if the RESTEasy
+  version requires it. They must be final, logic-free, and live in the api layer.
+  If the project's RESTEasy Reactive supports record bean params, use records.
+
 ## Quarkus specifics
 
 - Use `@ApplicationScoped` as the default bean scope; justify anything else.
@@ -32,12 +50,18 @@ instructions, not one-time steps.
   entities.
 - Persistence: repository pattern with Panache **repository** style
   (`PanacheRepository<T>`), NOT active record style. Entities stay free of query logic.
+- Query field names: never repeat raw string literals ("status") across queries; use
+  the generated JPA static metamodel (hibernate-jpamodelgen -> `Entity_.FIELD`) or a
+  per-entity constants holder.
 - Errors: one `@ServerExceptionMapper` (or `ExceptionMapper`) layer translating domain
   exceptions to RFC 7807 problem responses. Never leak stack traces in responses.
 - Prefer Mutiny (`Uni`/`Multi`) only when the endpoint genuinely benefits; otherwise
   plain imperative code on virtual threads (`@RunOnVirtualThread`) for Java 21+.
 
-## Testing
+## Testing (part of EVERY change, not optional)
+
+Any new endpoint, service method, or bean ships WITH its tests in the same task -
+never deliver production code and defer tests unless the user explicitly says to skip.
 
 - `@QuarkusTest` for slice/integration tests, RestAssured for endpoint tests.
 - Unit tests for application services with plain JUnit 5 + Mockito, no Quarkus boot.

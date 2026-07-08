@@ -24,6 +24,15 @@ instructions, not one-time steps.
 - REPR pattern for web layer: thin `@RestController` per use case, logic in
   application services.
 
+## Extensibility (Open-Closed)
+
+- Per-variant BEHAVIOR: one strategy interface, one bean per variant; inject
+  `Map<String, Strategy>` (Spring builds it from bean names) or build an EnumMap in a
+  factory. One exhaustive switch in one factory max; duplicated switches over the same
+  enum mean extract.
+- Per-variant CONFIGURATION: `@ConfigurationProperties` with a
+  `Map<VariantKey, Settings>` field, so new variants are config-only.
+
 ## Spring specifics
 
 - Prefer Spring Modulith-style module boundaries: one top-level package per business
@@ -41,7 +50,10 @@ instructions, not one-time steps.
   naming). If an `arch` test package exists, add rules there when introducing new
   patterns.
 
-## Testing
+## Testing (part of EVERY change, not optional)
+
+Any new endpoint, service method, or bean ships WITH its tests in the same task -
+never deliver production code and defer tests unless the user explicitly says to skip.
 
 - Unit tests: plain JUnit 5 + Mockito for services, no Spring context.
 - Slice tests: `@WebMvcTest` for controllers, `@DataJpaTest` for repositories.

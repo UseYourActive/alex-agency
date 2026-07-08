@@ -1,11 +1,12 @@
 ---
 name: spec-driven-dev
 description: >
-  Spec-driven development workflow: plan.md and tasks.md before code. Use when starting
-  any non-trivial feature, new service, or refactor (anything touching 3+ files or
-  introducing a new component). Also use when the user says "plan this", "spec this
-  out", or references plan.md/tasks.md. Not for one-line fixes, typos, or answering
-  questions.
+  Spec-driven development: plan.md and tasks.md BEFORE writing code. Use PROACTIVELY
+  whenever the user asks to add, implement, build, or create a feature, channel,
+  provider, integration, endpoint group, module, or service - anything likely to touch
+  3+ files or introduce a new component. Trigger phrases: "add a new X", "implement X",
+  "let's add/build X", "plan this", "spec this out". Do NOT write feature code without
+  the plan stage. Not for one-line fixes, typos, config tweaks, or questions.
 ---
 
 # Spec-Driven Development
