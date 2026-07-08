@@ -41,6 +41,12 @@ description: >
 - Never log secrets, tokens, full recipient lists, or message bodies; log ids
   and counts.
 
+## Identity & traceability
+
+- Worker/instance identifiers (lock owners, consumer ids) derive from HOSTNAME (pod
+  name in k8s) plus a short random suffix - never a bare random UUID - and are logged
+  at startup, so DB lock columns and logs trace back to a machine.
+
 ## Dashboards & alerts
 
 - Provision Grafana dashboards/datasources as code in the repo (config/ dir),

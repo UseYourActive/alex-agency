@@ -50,6 +50,21 @@ instructions, not one-time steps.
   naming). If an `arch` test package exists, add rules there when introducing new
   patterns.
 
+## Component hygiene
+
+- Mapping between representations (entity <-> domain <-> DTO) lives in dedicated
+  injectable mapper components - NEVER private/static mapping methods inside
+  services or controllers.
+- Any type in a component's public signatures (projections, result records) gets its
+  own file; nested types are for private implementation details only.
+- Query names are never inline literals: JPA static metamodel for JPQL/Specifications,
+  a per-entity SQL constants class for native queries. No constant interfaces.
+- When 3+ methods repeat the same guard/try-catch scaffolding, extract one private
+  functional helper.
+- Framework properties (`spring.*`, server timeouts etc.) may be constructor-injected
+  via `@Value` when they cannot live in a @ConfigurationProperties record; app config
+  never uses scattered `@Value`.
+
 ## Testing (part of EVERY change, not optional)
 
 Any new endpoint, service method, or bean ships WITH its tests in the same task -

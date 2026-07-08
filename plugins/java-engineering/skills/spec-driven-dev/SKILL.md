@@ -37,6 +37,9 @@ Bullet each. Non-goals prevent scope creep — always include at least one.
 Anything unresolved. Empty section = you haven't thought hard enough.
 ```
 
+plan.md and tasks.md are COMMITTED with the feature branch on purpose - they are
+the permanent decision record (ADR) for the change; never gitignore them.
+
 STOP after writing plan.md. Present it and get explicit approval before Stage 2.
 If the user answers open questions, update plan.md — it is the source of truth.
 
@@ -60,6 +63,9 @@ Task rules:
 
 ## Stage 3 — Execute
 
+- FIRST: create a feature branch `feature/<spec-name>` off the main branch and work
+  there. NEVER commit spec work directly to main/master — the user reviews via
+  pull request before anything lands.
 - Work strictly top-down through tasks.md. Mark `[x]` as each completes.
 - One task = one commit, message referencing the task
   (`feat(notifications): T3 add dedup key to schema`).
@@ -68,6 +74,9 @@ Task rules:
 - Definition of done per task: its "done when" check passes AND project tests pass.
 
 ## Stage 4 — Close out
+
+- Push the feature branch and tell the user it is ready for pull-request review.
+  Do NOT merge it yourself; merging is the user's decision after their own review.
 
 - Verify every checkbox is `[x]` or explicitly deferred (moved to a "Deferred"
   section with reason).

@@ -44,19 +44,34 @@ instructions, not one-time steps.
 ## Quarkus specifics
 
 - Use `@ApplicationScoped` as the default bean scope; justify anything else.
-- Configuration via `@ConfigMapping` interfaces, not `@ConfigProperty` field injection
-  scattered across classes. Group config per feature.
+- App configuration via `@ConfigMapping` interfaces, not `@ConfigProperty` field
+  injection scattered across classes; group config per feature. Exception: framework
+  properties (`quarkus.*`) cannot live in prefixed mappings - constructor-injecting
+  those via `@ConfigProperty` is correct. Runtime-configurable schedules use the
+  `@Scheduled(every = "{prop}")` expression form - that is idiomatic, not a smell.
 - REST: use `quarkus-rest` (RESTEasy Reactive) annotations; return DTO records, never
   entities.
 - Persistence: repository pattern with Panache **repository** style
   (`PanacheRepository<T>`), NOT active record style. Entities stay free of query logic.
-- Query field names: never repeat raw string literals ("status") across queries; use
-  the generated JPA static metamodel (hibernate-jpamodelgen -> `Entity_.FIELD`) or a
-  per-entity constants holder.
+- Query names are never inline literals. Panache/JPQL: generated JPA static metamodel
+  (hibernate-jpamodelgen -> `Entity_.FIELD`). Native SQL: a per-entity `XxxSql` final
+  constants class (table + column names). Never an interface of constants (constant
+  interface antipattern).
 - Errors: one `@ServerExceptionMapper` (or `ExceptionMapper`) layer translating domain
   exceptions to RFC 7807 problem responses. Never leak stack traces in responses.
 - Prefer Mutiny (`Uni`/`Multi`) only when the endpoint genuinely benefits; otherwise
   plain imperative code on virtual threads (`@RunOnVirtualThread`) for Java 21+.
+
+## Component hygiene
+
+- Mapping between representations (entity <-> domain <-> DTO) lives in dedicated
+  injectable @ApplicationScoped mapper components - NEVER private/static mapping
+  methods inside services, pollers, or resources.
+- Any type appearing in a component's public signatures (query results, projections,
+  results like ClaimResult) gets its own file - nested types are for private
+  implementation details only.
+- When 3+ methods repeat the same guard/try-catch scaffolding (enabled checks,
+  fail-open wrappers), extract one private functional helper; public methods stay thin.
 
 ## Testing (part of EVERY change, not optional)
 
