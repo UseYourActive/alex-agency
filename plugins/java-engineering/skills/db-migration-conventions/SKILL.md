@@ -15,7 +15,10 @@ is expected.
 
 ## Absolute rules
 
-- Never edit an applied migration; always a new versioned file forward.
+- Never edit an APPLIED migration; always a new versioned file forward. A migration
+  that exists only on an unmerged feature branch and has never run outside disposable
+  test databases MAY be consolidated/rewritten — but only with the user's explicit
+  approval, stating why it is provably unapplied.
 - Never `DROP COLUMN` or `DROP TABLE` carrying data without an explicit,
   user-approved data plan. State the data consequence in a comment at the top.
 - `ADD COLUMN ... NOT NULL` FAILS on non-empty tables unless it has a `DEFAULT`.

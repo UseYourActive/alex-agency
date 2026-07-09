@@ -36,6 +36,12 @@ migrations owned by ONE tool. Red flags: `hibernate-orm.database.generation=upda
 `schema-management.strategy=update` coexisting with Flyway/Liquibase; builds performed on
 the prod host; config baked into images.
 
+Verify the migration tool actually EXECUTES: its location config matches the real
+folder (Flyway default is db/migration, singular — a db/migrations folder is silently
+ignored), and the schema history table is populated. Migration files existing proves
+nothing; an ORM auto-DDL setting alongside inert migrations means the ORM owns the
+schema in reality. Grade what runs, not what is configured.
+
 ## VI. Processes — stateless
 Check: no session/queue/cache state in JVM memory that matters across requests.
 Red flags: in-memory SmallRye channels for durable work (`@Channel` without a broker
