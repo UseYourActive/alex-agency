@@ -35,6 +35,16 @@ instructions, not one-time steps.
 - Validators: one ConstraintValidator per concern/variant composed via annotation
   groups, not a god-class with per-channel branches.
 
+## Permitted exception to constructor injection (ArC proxyability)
+
+- Normal-scoped beans that ArC must client-proxy sometimes REQUIRE a no-args
+  constructor - notably JAX-RS resource families built on an inherited base class.
+  If constructor injection breaks deployment with "unproxyable bean class", those
+  specific classes may keep field injection or a package-private no-args constructor,
+  with a comment stating the ArC reason. Scope the exception to the affected classes
+  only, mirror it as a NAMED, commented exclusion in the ArchUnit rule, and never
+  widen it to whole packages.
+
 ## Permitted exception to the records rule
 
 - JAX-RS `@BeanParam` containers may be mutable classes with setters if the RESTEasy
