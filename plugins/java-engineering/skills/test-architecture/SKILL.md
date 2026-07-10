@@ -79,6 +79,17 @@ that exists in another test, STOP and extract it into the kit instead.
 - The uncoverable (mandatory-JCA catch blocks etc.): document why, propose the seam,
   move on. 100% is not the goal; absence of UNTESTED RISK is.
 
+## Credential isolation (non-negotiable)
+
+- Tests must NEVER see real credentials or real provider endpoints. The test
+  profile hard-overrides EVERY external credential, token, and base URL.
+- Beware config-source ordering: a dotenv/.env config source can OUTRANK %test
+  profile overrides (it did, in Quarkus) - when in doubt, use QuarkusTestProfile /
+  @TestPropertySource per-test overrides, which win.
+- Integration tests assert the fake is in effect (e.g. the client's base URL points
+  at the WireMock server) before trusting any passing result - a test that silently
+  talks to the real provider is worse than no test.
+
 ## Determinism rules
 
 - No sleeps, no wall-clock time, no real network to the internet, no test order
