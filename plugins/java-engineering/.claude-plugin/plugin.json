@@ -1,6 +1,6 @@
 {
   "name": "java-engineering",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Java backend engineering: Quarkus & Spring Boot conventions, Java version guides, Timefold patterns, Twelve-Factor audit, spec-driven development, review/test/dependency agents, and hooks blocking Lombok/MapStruct, field injection, migration edits, and secret leaks.",
   "author": {
     "name": "Alex Orozov",

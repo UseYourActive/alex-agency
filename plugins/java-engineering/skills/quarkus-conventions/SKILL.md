@@ -95,6 +95,10 @@ never deliver production code and defer tests unless the user explicitly says to
 - `@QuarkusTest` for slice/integration tests, RestAssured for endpoint tests.
 - Unit tests for application services with plain JUnit 5 + Mockito, no Quarkus boot.
 - Every bug fix gets a regression test first.
+- Coverage measurement: plain jacoco-maven-plugin reports 0% for @QuarkusTest classes
+  (Quarkus's classloader bypasses the agent) - pair it with the quarkus-jacoco
+  extension sharing one exec file. Report lands in target/jacoco-report/.
+- No Thread.sleep in tests, ever - fake/injected clocks and awaitility-style polling.
 
 ## Verification checklist (run mentally before finishing any task)
 
