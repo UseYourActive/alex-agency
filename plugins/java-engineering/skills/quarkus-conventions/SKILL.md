@@ -59,6 +59,10 @@ instructions, not one-time steps.
   properties (`quarkus.*`) cannot live in prefixed mappings - constructor-injecting
   those via `@ConfigProperty` is correct. Runtime-configurable schedules use the
   `@Scheduled(every = "{prop}")` expression form - that is idiomatic, not a smell.
+- Build-affecting properties (`quarkus.container-image.build`, `quarkus.package.*`,
+  deployment toggles) are NEVER unqualified in application.properties - they apply to
+  every Maven invocation everywhere, including CI jobs that must not build images.
+  Profile-qualify them (`%prod.`) or pass as -D flags in the invoking script.
 - REST: use `quarkus-rest` (RESTEasy Reactive) annotations; return DTO records, never
   entities.
 - Persistence: repository pattern with Panache **repository** style
