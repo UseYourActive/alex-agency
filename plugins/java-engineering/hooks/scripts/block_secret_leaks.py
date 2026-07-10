@@ -20,6 +20,7 @@ PATTERNS = [
     (re.compile(r"\bxox[baprs]-[A-Za-z0-9-]{10,}\b"), "Slack token"),
     (re.compile(r"jdbc:\w+://[^/\s:@]+:[^@\s/$]{3,}@"), "JDBC URL with inline password"),
     (re.compile(r"\bsk-[A-Za-z0-9]{20,}\b"), "API secret key (sk- prefix)"),
+    (re.compile(r"(?i)\b[\w.-]*(?:client|api|app)[_-]?secret\s*[=:]\s*['\"]?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b"), "OAuth client secret (UUID form)"),
 ]
 
 def main() -> int:

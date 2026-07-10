@@ -13,7 +13,7 @@
       "name": "java-engineering",
       "source": "./plugins/java-engineering",
       "description": "Java backend engineering conventions and workflows: Quarkus & Spring Boot standards, Java 8/17/21/25 version guides, Timefold Solver patterns, code-review and test-writer agents, Lombok/MapStruct blocker hook.",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "author": {
         "name": "Alex Orozov"
       },
