@@ -1,6 +1,6 @@
 {
   "name": "qa-automation",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "QA automation framework conventions: qa-commons architecture (JUnit 5, AssertJ, seeded data, thread-safe parallelism), typed Endpoint Object pattern, UI automation patterns (Playwright-first), Gatling performance testing, plus DB-oracle, reporting, and test-management-sync references.",
   "author": {
     "name": "Alex Orozov"

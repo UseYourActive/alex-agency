@@ -28,6 +28,14 @@ description: >
 4. **Simulation** — scenario + injection profile + assertions. Nothing else lives
    here; simulations stay ~20 lines.
 
+## Multi-module invocation gotcha
+
+- Directly-invoked `gatling:test` applies to EVERY reactor project it touches,
+  including the root aggregator, and fails there. Invoke it scoped to the perf
+  module only (`mvn -pl perf gatling:test`, no `-am`); build/install the perf
+  module's dependencies beforehand (`mvn -pl perf -am test-compile` or a prior
+  full build). Document the exact working command in the perf README.
+
 ## Session state rules
 
 - Data flows between steps ONLY via Session variables (`saveAs`, `#{name}` EL) —
