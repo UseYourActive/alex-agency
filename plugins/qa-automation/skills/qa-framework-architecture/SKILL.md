@@ -56,6 +56,12 @@ Tests WILL run in parallel. Therefore:
   secret — that class of mistake is why the leak hooks exist).
 - Base URLs always env-overridable so the same suite targets local/staging.
 
+## Deferred-domain references (read only when that work happens)
+
+- DB verification helpers (test oracles): read `references/db-test-oracles.md`
+- Allure/report wiring: read `references/reporting-allure.md`
+- Jira/AIO test-management sync: read `references/test-management-sync.md`
+
 ## Design rules
 
 - Framework code is a LIBRARY: no test logic in it, no project-specific names,
