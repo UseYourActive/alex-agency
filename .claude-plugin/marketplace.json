@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Alex Orozov's personal AI agency: portable skills, agents, and hooks for Java backend engineering (Quarkus, Spring Boot, Timefold, RAG).",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
@@ -23,6 +23,21 @@
         "spring-boot",
         "timefold",
         "backend"
+      ]
+    },
+    {
+      "name": "qa-automation",
+      "source": "./plugins/qa-automation",
+      "description": "QA automation framework conventions: qa-commons architecture (JUnit 5, AssertJ, seeded data), the typed Endpoint Object pattern for API testing, and thread-safe parallel execution rules.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Alex Orozov"
+      },
+      "keywords": [
+        "qa",
+        "test-automation",
+        "junit5",
+        "api-testing"
       ]
     }
   ]

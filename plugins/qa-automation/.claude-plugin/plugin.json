@@ -1,0 +1,8 @@
+{
+  "name": "qa-automation",
+  "version": "0.1.0",
+  "description": "QA automation framework conventions: qa-commons architecture (JUnit 5, AssertJ, Playwright-ready), the typed Endpoint Object pattern for API testing, seeded test data factories, and thread-safe parallel execution rules.",
+  "author": { "name": "Alex Orozov" },
+  "license": "MIT",
+  "keywords": ["qa", "test-automation", "rest-assured", "junit5", "api-testing"]
+}
