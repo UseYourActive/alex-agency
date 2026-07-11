@@ -70,6 +70,17 @@ Rules:
 - Reporting filter (Allure request/response attachment) configured per-instance in
   the base class, not via static global filters.
 
+## Contract discovery (before writing any endpoint class)
+
+- Never guess API paths. Fetch the machine-readable spec first: Quarkus serves
+  /q/openapi (Swagger UI at /q/swagger-ui, health at /q/health/ready); Spring
+  serves /v3/api-docs. Read paths, schemas, and error shapes from the spec, then
+  verify the critical path with ONE real request before locking models to it.
+- Query params NEVER by string concatenation ("?page=" + page) - not in tests,
+  not in endpoint subclasses. The base Endpoint exposes a distinctly-named
+  query-capable method (distinct name, not an overload, to avoid varargs
+  ambiguity) that URL-encodes properly.
+
 ## Test data factories
 
 - One factory per aggregate: `NotificationRequests.valid()`,

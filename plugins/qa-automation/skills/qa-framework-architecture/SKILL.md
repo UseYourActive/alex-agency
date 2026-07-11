@@ -62,6 +62,18 @@ Tests WILL run in parallel. Therefore:
 - Allure/report wiring: read `references/reporting-allure.md`
 - Jira/AIO test-management sync: read `references/test-management-sync.md`
 
+## Live-suite rules (tests against a running external service)
+
+- Live tests are opt-in: tagged (@Tag("live")) and gated behind an explicit flag/
+  profile, OFF by default - a fresh clone's `mvn clean verify` passes with the
+  target service down.
+- Never write a test that passes only while a KNOWN BUG exists in the target -
+  a test that breaks when the target improves is a liability, not coverage.
+  Controlled messiness (stub servers serving garbage on purpose) proves
+  robustness; live bugs get reported, not enshrined.
+- List/collection endpoints: assert the CONTRACT SHAPE (envelope fields, types,
+  status), tolerate zero items - never depend on pre-existing data.
+
 ## Design rules
 
 - Framework code is a LIBRARY: no test logic in it, no project-specific names,
