@@ -71,6 +71,9 @@ Tests WILL run in parallel. Therefore:
   a test that breaks when the target improves is a liability, not coverage.
   Controlled messiness (stub servers serving garbage on purpose) proves
   robustness; live bugs get reported, not enshrined.
+- When adding the FIRST live test to a CONSUMER repo, the default-off gating
+  (tag exclusion + opt-in flag) lands in the SAME commit - an ungated live test
+  breaks that repo's CI the moment it merges.
 - List/collection endpoints: assert the CONTRACT SHAPE (envelope fields, types,
   status), tolerate zero items - never depend on pre-existing data.
 
