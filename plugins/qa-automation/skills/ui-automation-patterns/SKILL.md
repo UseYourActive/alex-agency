@@ -38,8 +38,16 @@ description: >
 - One browser context (or driver) PER TEST, created and destroyed by a JUnit 5
   extension - never a shared singleton context (the old TestContext singleton
   under parallel methods = cross-test bleed).
-- Playwright: one Browser per JVM is fine (it's expensive); one BrowserContext +
-  Page per test (they're cheap and isolated - cookies/storage don't leak).
+- Playwright JAVA is NOT thread-safe across threads (unlike the JS/TS binding):
+  one Playwright + Browser instance PER WORKER THREAD - a JVM-wide shared Browser
+  corrupts the protocol under parallel execution (proven empirically). Within a
+  thread: fresh BrowserContext + Page per test (cheap, isolated).
+- Never assert via non-waiting accessors (locator.count(), isVisible()) - they
+  read instantaneous state and pass by timing luck. Use waiting web-first
+  assertions (assertThat(locator).hasCount/isVisible) which retry.
+- Locator pattern semantics differ from JS: Java needs explicit
+  java.util.regex.Pattern objects where JS auto-converts strings - a String
+  where a Pattern is expected matches literally and fails silently.
 - Provider interface + decorator (old IDriverProvider/DriverDecorator idea) stays
   a good seam for logging actions and choosing local vs remote - implement as
   injected collaborators, not static state.
