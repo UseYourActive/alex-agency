@@ -16,3 +16,15 @@ Additions for the rebuild:
   from the report alone.
 - Allure is optional per consumer project: reporting glue lives in core behind a
   small interface; plain SLF4J is the zero-dependency default.
+
+## Failure philosophy (deliberate divergence from the oracle rule)
+
+- The oracle IS the assertion: it fails LOUD. The reporter is a diagnostic
+  side-channel: attachment/parameter failures log a WARN and the test
+  continues - a broken report hook must never fail an otherwise-passing test.
+- Keep reporting optional structurally: interface in core, SLF4J default,
+  Allure via a tiny reflective bridge (no compile-time Allure dependency in
+  core, ever); modules opt in with test-scope deps that never propagate.
+- allure-maven's reportVersion pin to the 2.x line did NOT work in practice;
+  the Allure 3 default engine reads 2.x-format results fine - verify the
+  rendered report by OPENING it, never by the plugin exiting zero.

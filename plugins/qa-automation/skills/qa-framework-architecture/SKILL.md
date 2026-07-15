@@ -62,6 +62,14 @@ Tests WILL run in parallel. Therefore:
 - Allure/report wiring: read `references/reporting-allure.md`
 - Jira/AIO test-management sync: read `references/test-management-sync.md`
 
+## Maven multi-module gotcha (general)
+
+- A directly-invoked plugin goal (gatling:test, allure:report, exec:java...)
+  runs against EVERY reactor module regardless of where the plugin is declared;
+  <inherited>false</inherited> does not prevent it. Scope explicitly: -N for
+  root-only goals, -pl <module> for module goals. Document the exact working
+  command; verify by running it, not by reading the pom.
+
 ## Live-suite rules (tests against a running external service)
 
 - Live tests are opt-in: tagged (@Tag("live")) and gated behind an explicit flag/

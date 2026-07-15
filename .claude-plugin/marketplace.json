@@ -29,7 +29,7 @@
       "name": "qa-automation",
       "source": "./plugins/qa-automation",
       "description": "QA automation framework conventions: architecture, endpoint objects, UI patterns, Gatling perf testing, and reporting/DB/test-management references.",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "author": {
         "name": "Alex Orozov"
       },

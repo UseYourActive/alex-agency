@@ -22,3 +22,16 @@ Rules:
   factory, or dates corrupt silently.
 - Testcontainers for framework self-tests; real env access only via explicit env
   config in template/consumer projects.
+
+## Verify you reached the RIGHT database (learned the hard way)
+
+- A successful connection proves nothing about WHICH server answered: native
+  Postgres installs commonly squat on 5432, and a port collision means the
+  oracle silently asserts against whatever database happened to answer -
+  wrong-but-plausible results are worse than connection failures.
+- Before trusting any live oracle run: verify a known fingerprint of the
+  target (e.g. flyway_schema_history exists and lists the expected
+  migrations).
+- On port collisions: remap the CONTAINER's published port (DB_PORT env +
+  QA_DB_PORT to match) - never stop/kill a native install whose dependents
+  you don't know.
