@@ -63,3 +63,16 @@ bodies. Localized `title`/`detail` via the message service when the project has 
 - Annotate endpoints with summary + response codes incl. error responses;
   examples for non-obvious request bodies. Swagger UI never enabled
   unconditionally in prod (config-gated).
+
+## Serialization-provider changes (swaps, upgrades, consolidations)
+
+- Shape tests are NOT a wire-freeze proof - they tolerate exactly the drift
+  that breaks consumers (null fields appearing/disappearing, format changes).
+  Any change to WHO serializes responses gets a golden-response diff gate:
+  capture raw responses before, re-capture after, compare canonicalized JSON.
+- Verdict tiers: semantic difference (field presence, values, formats, nulls)
+  = stop-and-fix via serializer config; field-order-only = acceptable and
+  documented (JSON object members are unordered); named volatile fields
+  (ids, timestamps) = normalized before comparing.
+- Two JSON providers on one classpath is a latent race for reader AND writer
+  selection - never intentional; consolidate, with the golden diff as the gate.
